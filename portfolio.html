@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>QuantumTrade | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "card-dark": "#1a2234",
+                        "success": "#10b981",
+                        "danger": "#ef4444",
+                        "warning": "#f59e0b",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .sparkline-container {
+            height: 30px;
+            width: 100px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #101622;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #135bec40;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #135bec;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display">
+
+    <!-- Sidebar Navigation (Unified) -->
+    <aside
+        class="fixed left-0 top-0 h-full w-20 flex flex-col items-center py-8 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark z-50">
+        <div class="mb-10 text-primary">
+            <span class="material-symbols-outlined text-4xl font-bold">query_stats</span>
+        </div>
+        <nav class="flex flex-col gap-8 flex-1">
+            <a href="/" class="p-3 text-slate-400 hover:text-primary transition-colors" title="Dashboard">
+                <span class="material-symbols-outlined">dashboard</span>
+            </a>
+            <a href="/portfolio" class="p-3 bg-primary/10 text-primary rounded-xl" title="Portfolio">
+                <span class="material-symbols-outlined">account_balance_wallet</span>
+            </a>
+            <a href="/analysis" class="p-3 text-slate-400 hover:text-primary transition-colors" title="AI Analysis">
+                <span class="material-symbols-outlined">analytics</span>
+            </a>
+            <a href="#" class="p-3 text-slate-400 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined">notifications_active</span>
+            </a>
+        </nav>
+        <div class="mt-auto">
+            <img alt="User Profile" class="w-10 h-10 rounded-full border-2 border-primary"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_e6x_mqW70S0cZ-2WA9Ox4LUZ3jfUkV7GkLItmvEaPD4fO6TqFkLqMhWFF2ZP6VihJ-gk2zduwzhChKlY4bMjOEOAmTDJyzH6XUgbIoR4UhcooIKLprZyHWEJlqKbgyngeIzkn5kw9DhLh5Rajo-kO1UY1lUyuf0XhyIoT6MGVskA5aub7XO4LUteh1-a-Ka7C--6A9OVq2e2ZtKEs6Ef8N9zm4jnGIBa-Hy38T0d_SHt32pD0ZbbneJn9CgYxfJ38GENLZ7SJGw" />
+        </div>
+    </aside>
+
+    <main class="pl-20 p-8 max-w-[1600px] mx-auto">
+        <!-- Header Section -->
+        <header class="flex justify-between items-end mb-8">
+            <div>
+                <h1 class="text-3xl font-bold mb-1">Portfolio Overview</h1>
+                <p class="text-slate-500 dark:text-slate-400">Live market tracking and AI predictive insights</p>
+            </div>
+            <div class="flex gap-4">
+                <button
+                    class="px-4 py-2 bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-lg flex items-center gap-2 hover:border-primary transition-all">
+                    <span class="material-symbols-outlined text-sm">download</span>
+                    Export Data
+                </button>
+                <button
+                    class="px-6 py-2 bg-primary text-white rounded-lg flex items-center gap-2 hover:bg-primary/90 transition-all font-medium">
+                    <span class="material-symbols-outlined text-sm">add</span>
+                    Connect Brokerage
+                </button>
+            </div>
+        </header>
+
+        <!-- Top KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div
+                class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-2">Total Net Worth</p>
+                <div class="flex items-baseline gap-2">
+                    <h2 class="text-3xl font-bold">$248,592.12</h2>
+                    <span class="text-success text-sm font-medium flex items-center italic">
+                        <span class="material-symbols-outlined text-xs">trending_up</span> +12.5%
+                    </span>
+                </div>
+            </div>
+            <div
+                class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-2">Daily P&L</p>
+                <div class="flex items-baseline gap-2">
+                    <h2 class="text-3xl font-bold text-success">+$4,210.84</h2>
+                    <span class="text-slate-400 text-sm">today</span>
+                </div>
+            </div>
+            <div
+                class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-2">AI Accuracy Rate</p>
+                <div class="flex items-baseline gap-2">
+                    <h2 class="text-3xl font-bold text-primary">94.2%</h2>
+                    <span class="text-slate-400 text-sm">last 30d</span>
+                </div>
+            </div>
+            <div
+                class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-2">Active Alerts</p>
+                <div class="flex items-baseline gap-2">
+                    <h2 class="text-3xl font-bold">12</h2>
+                    <span class="text-warning text-sm font-medium">3 Critical</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Holdings Table -->
+            <div
+                class="lg:col-span-2 bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                    <h3 class="font-bold text-lg">Current Holdings</h3>
+                    <div class="flex gap-2">
+                        <span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full">LIVE</span>
+                        <button class="material-symbols-outlined text-slate-400 hover:text-primary">filter_list</button>
+                    </div>
+                </div>
+                <!-- ... Table Content ... -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr
+                                class="text-xs uppercase text-slate-500 dark:text-slate-400 bg-slate-50/50 dark:bg-slate-800/50">
+                                <th class="px-6 py-4 font-semibold">Asset</th>
+                                <th class="px-6 py-4 font-semibold">Price</th>
+                                <th class="px-6 py-4 font-semibold">24h Trend</th>
+                                <th class="px-6 py-4 font-semibold text-right">Qty</th>
+                                <th class="px-6 py-4 font-semibold text-right">Total Value</th>
+                                <th class="px-6 py-4 font-semibold text-right">P&L</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
+                                <td class="px-6 py-5">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-primary">
+                                            T</div>
+                                        <div>
+                                            <div class="font-bold">TSLA</div>
+                                            <div class="text-xs text-slate-500">Tesla, Inc.</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-5">
+                                    <div class="font-medium">$182.63</div>
+                                </td>
+                                <td class="px-6 py-5">
+                                    <div class="text-xs text-success font-medium">+2.4%</div>
+                                </td>
+                                <td class="px-6 py-5 text-right font-medium">120.00</td>
+                                <td class="px-6 py-5 text-right font-bold">$21,915.60</td>
+                                <td class="px-6 py-5 text-right font-medium text-success">+$1,240.50</td>
+                            </tr>
+                            <!-- Additional rows omitted for brevity, keeping structure -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- AI Alerts Sidebar -->
+            <div class="flex flex-col gap-6">
+                <div
+                    class="bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col">
+                    <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">smart_toy</span>
+                            <h3 class="font-bold text-lg">AI Insights Feed</h3>
+                        </div>
+                        <span class="w-2 h-2 bg-success rounded-full animate-pulse"></span>
+                    </div>
+                    <div class="p-4 flex flex-col gap-4 overflow-y-auto max-h-[500px]">
+                        <div class="bg-primary/5 border-l-4 border-primary p-4 rounded-r-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-xs font-bold text-primary uppercase tracking-wider">Predictive
+                                    Surge</span>
+                                <span class="text-[10px] text-slate-500 font-medium">2m ago</span>
+                            </div>
+                            <p class="text-sm font-medium mb-3">AI predicts a <span class="text-primary font-bold">5.2%
+                                    surge in TSLA</span> within 24h.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

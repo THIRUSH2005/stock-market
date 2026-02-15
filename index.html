@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>TATA STEEL - Share Price, Financials and Valuation</title>
+    <!-- Screener uses System Fonts, we mimic that clean look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "body": "#f8f9fa",
+                        "card": "#ffffff",
+                        "border": "#e9ecef",
+                        "text-main": "#212529",
+                        "text-muted": "#6c757d",
+                        "link": "#228be6",
+                        "success": "#2f9e44",
+                        "danger": "#e03131",
+                        "highlight": "#e7f5ff"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'sm': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+                        'sm-up': '0 -1px 2px 0 rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfcfc;
+            color: #333;
+        }
+
+        .container-custom {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .data-label {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .data-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .table-custom th {
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #666;
+            padding: 0.75rem 0.5rem;
+        }
+
+        .table-custom td {
+            padding: 0.75rem 0.5rem;
+            border-top: 1px solid #f1f1f1;
+            font-size: 0.9rem;
+        }
+
+        .table-custom tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        a {
+            color: #228be6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Floating Chat Button - Clean Style */
+        .chat-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #228be6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(34, 139, 230, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 100;
+        }
+
+        .chat-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Top Navigation -->
+    <nav class="bg-white border-b border-gray-200">
+        <div class="container-custom h-14 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <a href="/" class="font-bold text-xl tracking-tight text-gray-900 flex items-center gap-2">
+                    <span class="material-icons-outlined text-link">show_chart</span> Screener.ai
+                </a>
+                <div class="hidden md:flex gap-6 text-sm">
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Feed</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Screens</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Tools</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="relative hidden sm:block">
+                    <span class="absolute inset-y-0 left-0 pl-2 flex items-center text-gray-400">
+                        <span class="material-icons-outlined text-sm">search</span>
+                    </span>
+                    <input type="text" placeholder="Search for a company"
+                        class="pl-8 pr-4 py-1.5 bg-gray-100 border-none rounded text-sm focus:ring-2 focus:ring-link w-64" />
+                </div>
+                <!-- <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xs">S</div> -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container-custom py-8">
+
+        <!-- Company Header -->
+        <div class="mb-8">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-1">Tata Steel Ltd</h1>
+                    <div class="flex gap-4 text-sm mt-2">
+                        <a href="#">www.tatasteel.com</a>
+                        <span class="text-gray-400">|</span>
+                        <a href="#">BSE: 500470</a>
+                        <span class="text-gray-400">|</span>
+                        <a href="#">NSE: TATASTEEL</a>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-3xl font-bold text-gray-900 flex items-center justify-end gap-2">
+                        ₹ <span id="price-display">142.50</span>
+                        <span id="change-display"
+                            class="text-sm font-medium text-success bg-green-50 px-2 py-1 rounded">+1.25%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ratios Grid -->
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
+            <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-x-8">
+                <li class="flex flex-col">
+                    <span class="data-label">Market Cap</span>
+                    <span class="data-value">₹ 1,76,523 Cr</span>
+                </li>
+                <li class="flex flex-col">
+                    <span class="data-label">Current Price</span>
+                    <span class="data-value">₹ <span id="metric-price">142</span></span>
+                </li>
+                <li class="flex flex-col">
+                    <span class="data-label">High / Low</span>
+                    <span class="data-value">₹ 147 / 104</span>
+                </li>
+                <li class="flex flex-col">
+                    <span class="data-label">Stock P/E</span>
+                    <span class="data-value">42.5</span>
+                </li>
+                <li class="flex flex-col">
+                    <span class="data-label">Book Value</span>
+                    <span class="data-value">₹ 85.2</span>
+                </li>
+                <li class="flex flex-col">
+                    <span class="data-label">Dividend Yield</span>
+                    <span class="data-value">2.54 %</span>
+                </li>
+                <li class="flex flex-col">
+                    <span class="data-label">ROCE</span>
+                    <span class="data-value">12.5 %</span>
+                </li>
+                <li class="flex flex-col">
+                    <span class="data-label">ROE</span>
+                    <span class="data-value">7.50 %</span>
+                </li>
+                <li class="flex flex-col">
+                    <span class="data-label">Face Value</span>
+                    <span class="data-value">₹ 1.00</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="card relative">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold">Price Chart</h2>
+                <div class="flex gap-2 text-xs">
+                    <button class="px-2 py-1 bg-gray-100 rounded text-gray-600 hover:bg-gray-200">1M</button>
+                    <button class="px-2 py-1 bg-gray-100 rounded text-gray-600 hover:bg-gray-200">6M</button>
+                    <button class="px-2 py-1 bg-gray-800 text-white rounded">1Y</button>
+                    <button class="px-2 py-1 bg-gray-100 rounded text-gray-600 hover:bg-gray-200">3Y</button>
+                    <button class="px-2 py-1 bg-gray-100 rounded text-gray-600 hover:bg-gray-200">5Y</button>
+                </div>
+            </div>
+            <div class="h-[350px] w-full bg-white relative group">
+                <!-- Real Chart Canvas -->
+                <canvas id="screenerChart" class="w-full h-full"></canvas>
+            </div>
+        </div>
+
+        <!-- Analysis Section (AI) -->
+        <div class="card border-l-4 border-l-blue-500">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold">AI Analysis</h2>
+                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-bold">LIVE INSIGHTS</span>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-bold text-sm text-gray-500 uppercase mb-3">Pros</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex gap-2 items-start"><span
+                                class="material-icons-outlined text-success text-base">check_circle</span> <span>Company
+                                expected to give good quarter.</span></li>
+                        <li class="flex gap-2 items-start"><span
+                                class="material-icons-outlined text-success text-base">check_circle</span> <span>Company
+                                has maintained a healthy dividend payout of 45.2%.</span></li>
+                        <li class="flex gap-2 items-start"><span
+                                class="material-icons-outlined text-success text-base">check_circle</span> <span>AI
+                                detects bullish divergence in RSI on weekly charts.</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-sm text-gray-500 uppercase mb-3">Cons</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex gap-2 items-start"><span
+                                class="material-icons-outlined text-danger text-base">cancel</span> <span>Stock is
+                                trading at 1.67 times its book value.</span></li>
+                        <li class="flex gap-2 items-start"><span
+                                class="material-icons-outlined text-danger text-base">cancel</span> <span>Contingent
+                                liabilities of ₹ 12,450 Cr.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Peer Comparison -->
+        <div class="card">
+            <h2 class="text-lg font-semibold mb-6">Peer Comparison</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Name</th>
+                            <th class="text-right">CMP Rs.</th>
+                            <th class="text-right">P/E</th>
+                            <th class="text-right">Mar Cap Rs.Cr.</th>
+                            <th class="text-right">Div Yld %</th>
+                            <th class="text-right">NP Qtr Rs.Cr.</th>
+                            <th class="text-right">Qtr Profit Var %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="font-medium bg-highlight">
+                            <td>1.</td>
+                            <td><a href="#">Tata Steel</a></td>
+                            <td class="text-right">142.50</td>
+                            <td class="text-right">42.50</td>
+                            <td class="text-right">176,523</td>
+                            <td class="text-right">2.54</td>
+                            <td class="text-right">522.00</td>
+                            <td class="text-right">12.50</td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td><a href="#">JSW Steel</a></td>
+                            <td class="text-right">820.10</td>
+                            <td class="text-right">24.12</td>
+                            <td class="text-right">201,450</td>
+                            <td class="text-right">0.85</td>
+                            <td class="text-right">2,450.00</td>
+                            <td class="text-right">212.00</td>
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td><a href="#">Jindal Steel</a></td>
+                            <td class="text-right">740.25</td>
+                            <td class="text-right">15.40</td>
+                            <td class="text-right">75,420</td>
+                            <td class="text-right">0.25</td>
+                            <td class="text-right">1,240.00</td>
+                            <td class="text-right">285.40</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Quarterly Results (Simplified) -->
+        <div class="card">
+            <h2 class="text-lg font-semibold mb-6">Quarterly Results</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sep 2023</th>
+                            <th class="text-center">Dec 2023</th>
+                            <th class="text-center">Mar 2024</th>
+                            <th class="text-center">Jun 2024</th>
+                            <th class="text-center">Sep 2024</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-right">
+                        <tr>
+                            <td class="text-left font-medium text-gray-500">Sales</td>
+                            <td>55,682</td>
+                            <td>55,312</td>
+                            <td>58,687</td>
+                            <td>54,771</td>
+                            <td>53,905</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left font-medium text-gray-500">Expenses</td>
+                            <td>49,210</td>
+                            <td>48,460</td>
+                            <td>51,200</td>
+                            <td>49,820</td>
+                            <td>48,150</td>
+                        </tr>
+                        <tr class="font-medium bg-gray-50">
+                            <td class="text-left text-gray-700">Operating Profit</td>
+                            <td>6,472</td>
+                            <td>6,852</td>
+                            <td>7,487</td>
+                            <td>4,951</td>
+                            <td>5,755</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left font-medium text-gray-500">OPM %</td>
+                            <td>12%</td>
+                            <td>12%</td>
+                            <td>13%</td>
+                            <td>9%</td>
+                            <td>11%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 border-t border-gray-200 py-12 mt-8">
+        <div class="container-custom">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="font-bold mb-4">Screener.ai</h4>
+                    <p class="text-sm text-gray-500">Mitalytics enhanced with real-time AI predictions.</p>
+                </div>
+                <!-- Links omitted for brevity -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating AI Assistant -->
+    <button onclick="window.location.href='/analysis'" class="chat-btn">
+        <span class="material-icons-outlined">smart_toy</span>
+        Ask AI Analyst
+    </button>
+
+    <script>
+        // Real-time Logic (Simulated for Demo)
+        let currentPrice = 142.50;
+        const priceDisplay = document.getElementById('price-display');
+        const metricPrice = document.getElementById('metric-price');
+
+        // Canvas Chart
+        const canvas = document.getElementById('screenerChart');
+        const ctx = canvas.getContext('2d');
+        let chartPoints = [];
+
+        function initChart() {
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+
+            // Seed History
+            let p = 135;
+            for (let i = 0; i < 150; i++) {
+                p += (Math.random() - 0.45) * 1.5;
+                chartPoints.push(p);
+            }
+            drawChart();
+        }
+
+        function updateLive() {
+            const change = (Math.random() - 0.45) * 0.2;
+            currentPrice += change;
+            priceDisplay.innerText = currentPrice.toFixed(2);
+            metricPrice.innerText = Math.round(currentPrice);
+
+            // Update Chart
+            chartPoints.shift();
+            // Smooth append
+            const last = chartPoints[chartPoints.length - 1];
+            chartPoints.push(last + (currentPrice - last) * 0.1);
+
+            drawChart();
+        }
+
+        function drawChart() {
+            const width = canvas.width / (window.devicePixelRatio || 1);
+            const height = canvas.height / (window.devicePixelRatio || 1);
+            ctx.clearRect(0, 0, width, height);
+
+            const min = Math.min(...chartPoints) - 1;
+            const max = Math.max(...chartPoints) + 1;
+            const range = max - min;
+            const padding = 20;
+            const step = width / (chartPoints.length - 1);
+            const getY = (val) => height - padding - ((val - min) / range) * (height - padding * 2);
+
+            // Fill Area
+            ctx.beginPath();
+            ctx.moveTo(0, height);
+            chartPoints.forEach((val, i) => ctx.lineTo(i * step, getY(val)));
+            ctx.lineTo(width, height);
+            ctx.fillStyle = "#e7f5ff";
+            ctx.fill();
+
+            // Stroke Line
+            ctx.beginPath();
+            chartPoints.forEach((val, i) => {
+                if (i === 0) ctx.moveTo(i * step, getY(val));
+                else ctx.lineTo(i * step, getY(val));
+            });
+            ctx.strokeStyle = "#228be6";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Highlight End
+            const lastX = (chartPoints.length - 1) * step;
+            const lastY = getY(chartPoints[chartPoints.length - 1]);
+            ctx.beginPath();
+            ctx.fillStyle = "#228be6";
+            ctx.arc(lastX, lastY, 4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        window.addEventListener('resize', initChart);
+        setTimeout(initChart, 100);
+        setInterval(updateLive, 2000);
+    </script>
+</body>
+
+</html>
